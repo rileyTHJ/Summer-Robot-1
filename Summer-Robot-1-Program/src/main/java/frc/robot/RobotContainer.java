@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DataCollectCommand;
+import frc.robot.subsystems.EncoderSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -18,7 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
+  EncoderSubsystem sub_Encoder = new EncoderSubsystem();
+  DataCollectCommand cmd_DataCollect = new DataCollectCommand(sub_Encoder);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -44,7 +47,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-
+    m_driverController.b().whileTrue(cmd_DataCollect);
   }
 
   /**
@@ -52,4 +55,5 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+ 
 }
